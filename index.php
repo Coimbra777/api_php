@@ -33,4 +33,5 @@ if (isset($path[2])) {
 
 $method = $_SERVER['REQUEST_METHOD'];
 
-var_dump($method);
+require_once 'db/db.class.php';
+require_once 'api/clientes/clientes.php';
