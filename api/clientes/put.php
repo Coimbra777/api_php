@@ -2,10 +2,12 @@
 
 if ($acao == '' && $param == '') {
     echo json_encode(['ERRO' => 'Caminho inválido']);
+    exit;
 }
 
 if ($acao == 'update' && $param == '') {
     echo json_encode(['ERRO' => 'id do cliente não informado']);
+    exit;
 }
 
 if ($acao == 'update' && $param != '') {

@@ -12,4 +12,9 @@ if ($api == 'clientes') {
     if ($method == 'POST' && $_POST['_method'] == 'PUT') {
         include_once('put.php');
     }
+
+
+    if ($method == 'POST' && $_POST['_method'] == 'DELETE') {
+        include_once('delete.php');
+    }
 }

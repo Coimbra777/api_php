@@ -2,7 +2,7 @@
 
 if ($acao == '' && $param == '') {
     echo json_encode(['ERRO' => 'Caminho inválido']);
-    return;
+    exit;
 }
 
 if ($acao == 'listar' && $param !== '') {

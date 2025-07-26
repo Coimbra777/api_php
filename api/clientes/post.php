@@ -2,6 +2,7 @@
 
 if ($acao == '' && $param == '') {
     echo json_encode(['ERRO' => 'Caminho inválido']);
+    exit;
 }
 
 if ($acao == 'adiciona' && $param == '') {
