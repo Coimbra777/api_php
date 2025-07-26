@@ -1,3 +1,25 @@
 ### login
 POST http://api.local/usuarios/login HTTP/1.1
 Content-Type: application/x-www-form-urlencoded
+
+
+### listar
+GET http://api.local/clientes/lista HTTP/1.1
+
+###
+POST http://api.local/clientes/adicionar HTTP/1.1
+Content-Type: application/x-www-form-urlencoded
+
+
+### UPDATE
+POST http://api.local/clientes/update HTTP/1.1
+Content-Type: application/x-www-form-urlencoded
+
+_method=PUT
+
+
+### DELETE
+POST http://api.local/clientes/delete HTTP/1.1
+Content-Type: application/x-www-form-urlencoded
+
+_method=DELETE

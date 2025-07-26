@@ -56,8 +56,8 @@ class Usuarios
     public function verificar()
     {
         $headers = apache_request_headers();
-        if (isset($headers['Authorization'])) {
-            $token = str_replace("Bearer ", "", $headers['Authorization']);
+        if (isset($headers['authorization'])) {
+            $token = str_replace("Bearer ", "", $headers['authorization']);
         } else {
             echo json_encode(['ERRO' => 'Você não está logado, ou seu token é inválido.']);
             exit;
