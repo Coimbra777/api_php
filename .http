@@ -2,6 +2,9 @@
 POST http://api.local/usuarios/login HTTP/1.1
 Content-Type: application/x-www-form-urlencoded
 
+login=gabriel
+&senha=1234
+
 
 ### listar
 GET http://api.local/clientes/lista HTTP/1.1

@@ -5,8 +5,8 @@ class Usuarios
     public function login()
     {
         if ($_POST) {
-            if (!$_POST['login'] || !$_POST['senha']) {
-                echo json_encode(['ERRO' => 'Preencha todos os campos']);
+            if (!$_POST['login'] or !$_POST['senha']) {
+                echo json_encode(['ERRO' => 'Falta informacoes!']);
                 exit;
             } else {
                 $login = addslashes(htmlspecialchars($_POST['login'])) ?? '';
@@ -48,7 +48,7 @@ class Usuarios
                 }
             }
         } else {
-            echo json_encode(['ERRO' => 'Preencha todos os campos']);
+            echo json_encode(['ERRO' => 'Falta informacoes!']);
             exit;
         }
     }

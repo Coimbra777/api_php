@@ -5,113 +5,107 @@ class Clientes
     public function listarTodos()
     {
         $db = DB::connect();
-        $resultado = $db->prepare('SELECT * FROM clientes ORDER BY nome');
-        $resultado->execute();
+        $rs = $db->prepare("SELECT * FROM clientes ORDER BY nome");
+        $rs->execute();
+        $obj = $rs->fetchAll(PDO::FETCH_ASSOC);
 
-        $obj = $resultado->fetchAll(PDO::FETCH_ASSOC);
-
-        echo json_encode(['dados' => $obj ?: []]);
-        return;
+        if ($obj) {
+            echo json_encode(["dados" => $obj]);
+        } else {
+            echo json_encode(["dados" => 'Não existem dados para retornar']);
+        }
     }
 
-    public function listarunico($id)
+    public function listarUnico($param)
     {
+        //var_dump("Parametro: ".$param);
+
         $db = DB::connect();
-        $resultado = $db->prepare('SELECT * FROM clientes WHERE id = :id');
-        $resultado->bindParam(':id', $param, PDO::PARAM_INT);
-        $resultado->execute();
+        $rs = $db->prepare("SELECT * FROM clientes WHERE id={$param}");
+        $rs->execute();
+        $obj = $rs->fetchObject();
 
-        $obj = $resultado->fetchAll(PDO::FETCH_ASSOC);
-
-        echo json_encode(['dados' => $obj ?: []]);
-        return;
+        if ($obj) {
+            echo json_encode(["dados" => $obj]);
+        } else {
+            echo json_encode(["dados" => 'Não existem dados para retornar']);
+        }
     }
 
-    public function adicionar($dados)
+    public function adicionar()
     {
-
         $sql = "INSERT INTO clientes (";
-
-        $contIndice = 1;
+        $contador = 1;
         foreach (array_keys($_POST) as $indice) {
-            if (count($_POST) >  $contIndice) {
+            if (count($_POST) > $contador) {
                 $sql .= "{$indice},";
             } else {
                 $sql .= "{$indice}";
             }
-
-            $contIndice++;
+            $contador++;
         }
-
         $sql .= ") VALUES (";
-
-        $contValor = 1;
+        $contador = 1;
         foreach (array_values($_POST) as $valor) {
-            if (count($_POST) > $contValor) {
+            if (count($_POST) > $contador) {
                 $sql .= "'{$valor}',";
             } else {
                 $sql .= "'{$valor}'";
             }
-            $contValor++;
+            $contador++;
         }
-
         $sql .= ")";
 
         $db = DB::connect();
-        $resultado = $db->prepare($sql);
-        $exec = $resultado->execute();
+        $rs = $db->prepare($sql);
+        $exec = $rs->execute();
 
         if ($exec) {
-            echo json_encode(['status' => 'Dados inseridos com sucesso']);
+            echo json_encode(["dados" => 'Dados foram inseridos com sucesso.']);
         } else {
-            echo json_encode(['status' => 'Erro ao inserir dados']);
+            echo json_encode(["dados" => 'Houve algum erro ao inseris os dados.']);
         }
     }
 
-    public function atualizar($id, $dados)
+    public function atualizar($param)
     {
         array_shift($_POST);
 
         $sql = "UPDATE clientes SET ";
 
-        $contIndice = 1;
+        $contador = 1;
         foreach (array_keys($_POST) as $indice) {
-            if (count($_POST) >  $contIndice) {
-                $sql .= "{$indice} = '{$_POST[$indice]}',";
+            if (count($_POST) > $contador) {
+                $sql .= "{$indice} = '{$_POST[$indice]}', ";
             } else {
-                $sql .= "{$indice} = '{$_POST[$indice]}'";
+                $sql .= "{$indice} = '{$_POST[$indice]}' ";
             }
-
-            $contIndice++;
+            $contador++;
         }
 
-        $sql .= " WHERE id = {$id}";
+        $sql .= "WHERE id={$param}";
 
         $db = DB::connect();
-        $resultado = $db->prepare($sql);
-        $exec = $resultado->execute();
+        $rs = $db->prepare($sql);
+        $exec = $rs->execute();
 
         if ($exec) {
-            echo json_encode(['status' => 'Dados atualizados com sucesso']);
+            echo json_encode(["dados" => 'Dados atualizados com sucesso.']);
         } else {
-            echo json_encode(['status' => 'Erro ao atualizar dados']);
+            echo json_encode(["dados" => 'Houve erro ao atualizar dados.']);
         }
     }
 
-    public function deletar($id)
+    public function deletar()
     {
-        array_shift($_POST);
-
-        $sql = "DELETE FROM clientes WHERE id = {$id}";
-
         $db = DB::connect();
-        $resultado = $db->prepare($sql);
-        $exec = $resultado->execute();
+        $rs = $db->prepare("DELETE FROM clientes WHERE id={$param}");
+        $exec = $rs->execute();
 
         if ($exec) {
-            echo json_encode(['status' => 'Cliente excluido com sucesso']);
+            echo json_encode(["dados" => 'Dados foram excluidos com sucesso.']);
         } else {
-            echo json_encode(['status' => 'Erro ao excluir o cliente']);
+            echo json_encode(["dados" => 'Houve algum erro ao excluir os dados.']);
         }
     }
 }

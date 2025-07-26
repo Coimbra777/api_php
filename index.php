@@ -1,20 +1,21 @@
 <?php
-
 header('Access-Control-Allow-Origin: *');
-header('Content-Type: application/json');
+header('Content-type: application/json');
 
-date_default_timezone_set('America/Sao_Paulo');
+date_default_timezone_set("America/Sao_Paulo");
 
-include_once 'classes/autoload.class.php';
+$GLOBALS['secretJWT'] = '123456';
 
-### Autoload
+# Autoload
+
+include_once "classes/autoload.class.php";
 new Autoload();
 
+# Rotas
 
-### Rotas
 $rota = new Rotas();
 $rota->add('POST', '/usuarios/login', 'Usuarios::login', false);
 $rota->add('GET', '/clientes/listar', 'Clientes::listarTodos', true);
-$rota->add('GET', '/clientes/listar/[ID]', 'Clientes::listarUnico', true);
-
+$rota->add('GET', '/clientes/listar/[PARAM]', 'Clientes::listarUnico', true);
+$rota->add('PUT', '/clientes/atualizar/[PARAM]', 'Clientes::atualizar', true);
 $rota->ir($_GET['path']);

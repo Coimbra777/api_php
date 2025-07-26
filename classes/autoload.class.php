@@ -1,6 +1,5 @@
 <?php
 
-
 class Autoload
 {
     public function __construct()
@@ -8,10 +7,9 @@ class Autoload
         $files = scandir(__DIR__ . "/");
 
         foreach ($files as $file) {
-            if ($file == '.' || $file == '..') {
-                continue;
+            if (!in_array($file, ['.', '..'])) {
+                include_once $file;
             }
-            include_once $file;
         }
     }
 }
