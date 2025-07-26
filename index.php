@@ -33,5 +33,6 @@ if (isset($path[2])) {
 
 $method = $_SERVER['REQUEST_METHOD'];
 
-require_once 'db/db.class.php';
-require_once 'api/clientes/clientes.php';
+include_once 'classes/autoload.class.php';
+
+new Autoload();
